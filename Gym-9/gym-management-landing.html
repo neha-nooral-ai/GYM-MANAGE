@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GymOS – Gym Management System</title>
+  <meta name="description" content="Modern gym management software for gym owners, fitness centers, and enterprise chains. Streamline members, billing, trainers, and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0D0D0D;
+      --white: #F7F7F5;
+      --gray-100: #F0EFEC;
+      --gray-300: #D4D3CE;
+      --gray-500: #8C8B84;
+      --gray-700: #4A4A45;
+      --accent: #1A1A1A;
+      --line: #E2E1DC;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--line);
+      padding: 0 5vw;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.25rem; font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--black);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--gray-500); font-weight: 700; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--gray-700); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--black); }
+    .nav-cta {
+      background: var(--black); color: var(--white);
+      border: none; padding: 0.5rem 1.25rem;
+      font-size: 0.875rem; font-weight: 600;
+      cursor: pointer; text-decoration: none;
+      transition: opacity .2s;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* HERO */
+    .hero {
+      padding: 100px 5vw 80px;
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      border: 1px solid var(--line);
+      padding: 0.3rem 0.75rem;
+      font-size: 0.75rem; font-weight: 600;
+      color: var(--gray-700);
+      letter-spacing: 0.06em; text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .hero-badge-dot { width: 6px; height: 6px; background: var(--black); border-radius: 50%; }
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--black);
+      margin-bottom: 1.5rem;
+    }
+    h1 em { font-style: normal; color: var(--gray-500); }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--gray-700); line-height: 1.7;
+      margin-bottom: 2.5rem; max-width: 460px;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+    .btn-primary {
+      background: var(--black); color: var(--white);
+      padding: 0.75rem 1.75rem; font-size: 0.9rem; font-weight: 600;
+      border: none; cursor: pointer; text-decoration: none;
+      transition: opacity .2s; display: inline-block;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-ghost {
+      background: transparent; color: var(--black);
+      padding: 0.75rem 1.75rem; font-size: 0.9rem; font-weight: 600;
+      border: 1.5px solid var(--black); cursor: pointer; text-decoration: none;
+      transition: all .2s; display: inline-block;
+    }
+    .btn-ghost:hover { background: var(--black); color: var(--white); }
+
+    .hero-visual {
+      background: var(--gray-100);
+      border: 1px solid var(--line);
+      padding: 2rem;
+      min-height: 380px;
+      display: flex; flex-direction: column; gap: 1rem;
+      position: relative; overflow: hidden;
+    }
+    .dash-header {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.75rem; font-weight: 600; color: var(--gray-500);
+      text-transform: uppercase; letter-spacing: 0.05em;
+      padding-bottom: 1rem; border-bottom: 1px solid var(--line);
+    }
+    .dash-stat-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; }
+    .dash-stat {
+      background: var(--white); border: 1px solid var(--line);
+      padding: 1rem; 
+    }
+    .dash-stat-val { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; }
+    .dash-stat-label { font-size: 0.7rem; color: var(--gray-500); margin-top: 0.2rem; text-transform: uppercase; letter-spacing: 0.04em; }
+    .dash-bar-row { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem; }
+    .dash-bar-item { display: flex; align-items: center; gap: 0.75rem; font-size: 0.75rem; color: var(--gray-700); }
+    .dash-bar-track { flex: 1; height: 6px; background: var(--line); position: relative; }
+    .dash-bar-fill { height: 100%; background: var(--black); }
+    .dash-member-list { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem; }
+    .dash-member { display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; padding: 0.5rem 0.75rem; background: var(--white); border: 1px solid var(--line); }
+    .dash-tag { font-size: 0.65rem; font-weight: 600; padding: 0.15rem 0.4rem; background: var(--black); color: var(--white); }
+
+    /* STATS STRIP */
+    .stats-strip {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 2.5rem 5vw;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      max-width: 1200px; margin: 0 auto;
+    }
+    .stat-item { text-align: center; }
+    .stat-item + .stat-item { border-left: 1px solid var(--line); }
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.4rem; font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+    .stat-desc { font-size: 0.8rem; color: var(--gray-500); margin-top: 0.25rem; }
+
+    /* SECTION */
+    section { padding: 90px 5vw; max-width: 1200px; margin: 0 auto; }
+    .section-eyebrow {
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--gray-500);
+      margin-bottom: 1rem;
+    }
+    h2 {
+      font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800; letter-spacing: -0.03em; line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .section-sub { font-size: 1rem; color: var(--gray-700); max-width: 540px; line-height: 1.7; margin-bottom: 3rem; }
+
+    /* FEATURES */
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+    .feature-card { background: var(--white); padding: 2rem; }
+    .feature-icon { font-size: 1.5rem; margin-bottom: 1rem; }
+    .feature-card h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .feature-card p { font-size: 0.875rem; color: var(--gray-700); line-height: 1.6; }
+
+    /* PRICING */
+    .pricing-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+    .pricing-card { background: var(--white); padding: 2rem; display: flex; flex-direction: column; }
+    .pricing-card.featured { background: var(--black); color: var(--white); }
+    .pricing-card.featured .plan-price-sub, .pricing-card.featured p, .pricing-card.featured li { color: #aaa; }
+    .plan-name { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray-500); margin-bottom: 1rem; }
+    .pricing-card.featured .plan-name { color: #888; }
+    .plan-price { font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+    .plan-price-sub { font-size: 0.75rem; color: var(--gray-500); margin-bottom: 1rem; }
+    .plan-desc { font-size: 0.8rem; color: var(--gray-700); margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--line); line-height: 1.5; }
+    .pricing-card.featured .plan-desc { border-color: #333; }
+    .plan-features { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.8rem; flex: 1; }
+    .plan-features li { display: flex; gap: 0.5rem; align-items: flex-start; }
+    .plan-features li::before { content: "—"; color: var(--gray-500); flex-shrink: 0; }
+    .pricing-card.featured .plan-features li::before { color: #777; }
+    .plan-cta { margin-top: 2rem; padding: 0.6rem; text-align: center; font-size: 0.8rem; font-weight: 600; cursor: pointer; border: 1.5px solid var(--black); background: transparent; transition: all .2s; text-decoration: none; display: block; }
+    .plan-cta:hover { background: var(--black); color: var(--white); }
+    .pricing-card.featured .plan-cta { border-color: var(--white); color: var(--white); }
+    .pricing-card.featured .plan-cta:hover { background: var(--white); color: var(--black); }
+
+    /* TESTIMONIALS */
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+    .testimonial-card { background: var(--white); padding: 2rem; }
+    .testimonial-quote { font-size: 0.9rem; line-height: 1.7; color: var(--gray-700); margin-bottom: 1.5rem; }
+    .testimonial-author { font-size: 0.75rem; font-weight: 700; }
+    .testimonial-role { font-size: 0.7rem; color: var(--gray-500); }
+
+    /* HOW IT WORKS */
+    .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+    .step-num { font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 800; color: var(--line); margin-bottom: 0.75rem; }
+    .step h3 { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .step p { font-size: 0.85rem; color: var(--gray-700); line-height: 1.6; }
+
+    /* CTA BAND */
+    .cta-band {
+      background: var(--black); color: var(--white);
+      padding: 80px 5vw; text-align: center;
+    }
+    .cta-band h2 { color: var(--white); margin-bottom: 1rem; }
+    .cta-band p { color: #aaa; margin-bottom: 2.5rem; }
+    .cta-form { display: flex; gap: 0; max-width: 440px; margin: 0 auto; }
+    .cta-form input {
+      flex: 1; padding: 0.75rem 1rem; border: none;
+      background: #1a1a1a; color: var(--white);
+      font-size: 0.9rem; outline: none;
+      border: 1px solid #333;
+    }
+    .cta-form input::placeholder { color: #666; }
+    .cta-form button {
+      padding: 0.75rem 1.25rem; background: var(--white); color: var(--black);
+      border: none; font-size: 0.875rem; font-weight: 700; cursor: pointer;
+      white-space: nowrap; transition: opacity .2s;
+    }
+    .cta-form button:hover { opacity: 0.9; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 3rem 5vw 2rem;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+    .footer-brand p { font-size: 0.85rem; color: var(--gray-700); margin-top: 0.75rem; max-width: 240px; line-height: 1.6; }
+    .footer-col h4 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .footer-col ul li a { font-size: 0.85rem; color: var(--gray-700); text-decoration: none; transition: color .2s; }
+    .footer-col ul li a:hover { color: var(--black); }
+    .footer-bottom { border-top: 1px solid var(--line); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+    .footer-bottom p { font-size: 0.75rem; color: var(--gray-500); }
+
+    /* DIVIDER */
+    .divider { border: none; border-top: 1px solid var(--line); }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; gap: 3rem; }
+      .hero-visual { min-height: 280px; }
+      .stats-strip { grid-template-columns: repeat(2, 1fr); gap: 0; }
+      .stats-strip .stat-item:nth-child(3) { border-left: none; border-top: 1px solid var(--line); }
+      .stats-strip .stat-item:nth-child(4) { border-top: 1px solid var(--line); }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      nav .nav-links { display: none; }
+    }
+    @media (max-width: 600px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .cta-form { flex-direction: column; }
+      .stats-strip { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Gym<span>OS</span></a>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#testimonials">Testimonials</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#demo" class="nav-cta">Book a Demo</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-badge"><span class="hero-badge-dot"></span> Gym Management Platform</div>
+    <h1>Run your gym.<br /><em>Not your spreadsheets.</em></h1>
+    <p class="hero-sub">GymOS is an all-in-one management system built for gym owners, fitness centers, and enterprise chains. Members, billing, trainers — handled.</p>
+    <div class="hero-actions">
+      <a href="#demo" class="btn-primary">Book a Free Demo</a>
+      <a href="#features" class="btn-ghost">See Features</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="dash-header">
+      <span>GymOS Dashboard</span>
+      <span>June 2026</span>
+    </div>
+    <div class="dash-stat-row">
+      <div class="dash-stat">
+        <div class="dash-stat-val">1,284</div>
+        <div class="dash-stat-label">Active Members</div>
+      </div>
+      <div class="dash-stat">
+        <div class="dash-stat-val">96%</div>
+        <div class="dash-stat-label">Attendance Rate</div>
+      </div>
+      <div class="dash-stat">
+        <div class="dash-stat-val">₹4.2L</div>
+        <div class="dash-stat-label">Monthly Revenue</div>
+      </div>
+    </div>
+    <div class="dash-bar-row">
+      <div class="dash-bar-item">
+        <span style="width:80px">Members</span>
+        <div class="dash-bar-track"><div class="dash-bar-fill" style="width:78%"></div></div>
+        <span>78%</span>
+      </div>
+      <div class="dash-bar-item">
+        <span style="width:80px">Renewals</span>
+        <div class="dash-bar-track"><div class="dash-bar-fill" style="width:91%"></div></div>
+        <span>91%</span>
+      </div>
+      <div class="dash-bar-item">
+        <span style="width:80px">Billing</span>
+        <div class="dash-bar-track"><div class="dash-bar-fill" style="width:65%"></div></div>
+        <span>65%</span>
+      </div>
+    </div>
+    <div class="dash-member-list">
+      <div class="dash-member"><span>Rahul Sharma</span><span class="dash-tag">Active</span></div>
+      <div class="dash-member"><span>Priya Mehta</span><span class="dash-tag">Active</span></div>
+      <div class="dash-member" style="opacity:.45"><span>Ankit Desai</span><span class="dash-tag" style="background:var(--gray-300);color:var(--black)">Expired</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS STRIP -->
+<div style="border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+  <div class="stats-strip">
+    <div class="stat-item">
+      <div class="stat-num">500+</div>
+      <div class="stat-desc">Gyms using GymOS</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">1.2M</div>
+      <div class="stat-desc">Members managed</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">99.9%</div>
+      <div class="stat-desc">System uptime</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">&lt; 3s</div>
+      <div class="stat-desc">Page load time</div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section id="features">
+  <p class="section-eyebrow">What You Get</p>
+  <h2>Everything to run your fitness business</h2>
+  <p class="section-sub">From day-one signups to multi-branch analytics — GymOS covers every operation so you can focus on growing, not managing.</p>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">👥</div>
+      <h3>Member Management</h3>
+      <p>Full member profiles, enrollment history, photo ID, notes, and batch operations. Manage thousands in minutes.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📅</div>
+      <h3>Attendance Tracking</h3>
+      <p>Biometric, QR-code, and kiosk check-in. Real-time attendance logs with daily, weekly, and monthly reports.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💳</div>
+      <h3>Membership Plans</h3>
+      <p>Create flexible plans — monthly, quarterly, annual, or custom. Assign, renew, and freeze memberships with ease.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💰</div>
+      <h3>Billing & Payments</h3>
+      <p>Automated invoicing, payment reminders, online collection, and receipt generation. No more manual follow-ups.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🏋️</div>
+      <h3>Trainer Management</h3>
+      <p>Assign trainers to members, track schedules, log sessions, and monitor performance — all in one screen.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <h3>Reports & Analytics</h3>
+      <p>Revenue summaries, member churn rates, peak hour heatmaps, and custom export. Know your numbers clearly.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📱</div>
+      <h3>Mobile App</h3>
+      <p>Members book classes, check schedules, and pay dues from their phone. Owners manage on the go.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🖥️</div>
+      <h3>Kiosk Mode</h3>
+      <p>Self-service check-in kiosk at your entrance. Reduce front-desk load and speed up member flow.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔒</div>
+      <h3>Secure & Reliable</h3>
+      <p>Form validation, spam protection, encrypted data handling, and 99.9% uptime. Your data is safe.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<div style="border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--gray-100);">
+  <section id="how">
+    <p class="section-eyebrow">How It Works</p>
+    <h2>Up and running in four steps</h2>
+    <p class="section-sub" style="margin-bottom:3.5rem;">From sign-up to full operation, GymOS gets your gym live without a technical team.</p>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Book a Demo</h3>
+        <p>Schedule a free walkthrough with our team. We'll show you exactly how GymOS fits your gym's workflow.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>Set Up Your Gym</h3>
+        <p>We configure your plans, trainers, and branding. Most gyms go live within 48 hours of onboarding.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Onboard Members</h3>
+        <p>Import existing members or start fresh. The system handles all enrollment and payment collection.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h3>Grow with Data</h3>
+        <p>Use built-in reports and analytics to understand your business and make decisions with confidence.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- PRICING -->
+<section id="pricing">
+  <p class="section-eyebrow">Pricing</p>
+  <h2>Plans for every gym size</h2>
+  <p class="section-sub">No hidden fees. No long-term lock-in. Cancel anytime.</p>
+
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <div class="plan-name">Basic</div>
+      <div class="plan-price">₹999<span style="font-size:1rem;font-weight:400">/mo</span></div>
+      <div class="plan-price-sub">per gym location</div>
+      <p class="plan-desc">For solo trainers and small boutique studios just getting started.</p>
+      <ul class="plan-features">
+        <li>Up to 100 members</li>
+        <li>Member & attendance tracking</li>
+        <li>Basic billing</li>
+        <li>Email support</li>
+      </ul>
+      <a href="#demo" class="plan-cta">Get Started</a>
+    </div>
+
+    <div class="pricing-card">
+      <div class="plan-name">Standard</div>
+      <div class="plan-price">₹2,499<span style="font-size:1rem;font-weight:400">/mo</span></div>
+      <div class="plan-price-sub">per gym location</div>
+      <p class="plan-desc">For growing gyms that need full member management and reporting.</p>
+      <ul class="plan-features">
+        <li>Up to 500 members</li>
+        <li>All Basic features</li>
+        <li>Trainer management</li>
+        <li>Advanced reports</li>
+        <li>Mobile app access</li>
+      </ul>
+      <a href="#demo" class="plan-cta">Get Started</a>
+    </div>
+
+    <div class="pricing-card featured">
+      <div class="plan-name">Premium</div>
+      <div class="plan-price">₹4,999<span style="font-size:1rem;font-weight:400">/mo</span></div>
+      <div class="plan-price-sub">per gym location</div>
+      <p class="plan-desc">For established gyms that need kiosk mode, analytics, and priority support.</p>
+      <ul class="plan-features">
+        <li>Unlimited members</li>
+        <li>All Standard features</li>
+        <li>Kiosk mode</li>
+        <li>Custom branding</li>
+        <li>Priority phone support</li>
+        <li>Dedicated onboarding</li>
+      </ul>
+      <a href="#demo" class="plan-cta">Get Started</a>
+    </div>
+
+    <div class="pricing-card">
+      <div class="plan-name">Enterprise</div>
+      <div class="plan-price">Custom</div>
+      <div class="plan-price-sub">multi-branch pricing</div>
+      <p class="plan-desc">For franchise operators and enterprise fitness chains with multiple locations.</p>
+      <ul class="plan-features">
+        <li>Multi-branch management</li>
+        <li>All Premium features</li>
+        <li>SLA guarantee</li>
+        <li>API access</li>
+        <li>Dedicated account manager</li>
+        <li>Custom integrations</li>
+      </ul>
+      <a href="#contact" class="plan-cta">Talk to Sales</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<div style="border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--gray-100);">
+  <section id="testimonials">
+    <p class="section-eyebrow">From Gym Owners</p>
+    <h2>What our customers say</h2>
+    <p class="section-sub" style="margin-bottom:3rem;">Real results from real gym owners across India.</p>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <p class="testimonial-quote">"We switched from spreadsheets to GymOS and cut admin time in half. Billing used to take a full day — now it's automated completely."</p>
+        <div class="testimonial-author">Rohan Kulkarni</div>
+        <div class="testimonial-role">Owner, Strength Studio — Pune</div>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-quote">"Managing three branches was a nightmare before. GymOS gives me a single view of all locations. I finally know what's actually happening."</p>
+        <div class="testimonial-author">Sneha Joshi</div>
+        <div class="testimonial-role">Founder, FitZone Franchise — Mumbai</div>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-quote">"The kiosk mode alone saved us a full-time front-desk hire. Our members love checking in themselves, and it looks professional."</p>
+        <div class="testimonial-author">Vikram Nair</div>
+        <div class="testimonial-role">Director, Elite Wellness Club — Bangalore</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- DEMO / CTA -->
+<div class="cta-band" id="demo">
+  <h2 style="font-family:'Syne',sans-serif; font-size:clamp(1.8rem,3.5vw,2.4rem); letter-spacing:-0.03em;">See GymOS in action</h2>
+  <p>Book a free 30-minute demo. No commitment, no credit card required.</p>
+  <div class="cta-form">
+    <input type="email" placeholder="Enter your work email" />
+    <button type="button">Book Demo →</button>
+  </div>
+  <p style="margin-top:1rem; font-size:0.75rem; color:#555;">Or call us at <strong style="color:#aaa">+91 98765 43210</strong> — we respond within 2 hours.</p>
+</div>
+
+<!-- CONTACT -->
+<section id="contact" style="border-top:1px solid var(--line);">
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start;">
+    <div>
+      <p class="section-eyebrow">Contact Us</p>
+      <h2>Have a question?<br />Let's talk.</h2>
+      <p class="section-sub" style="margin-bottom:2rem;">Our team responds within one business day. For urgent matters, call us directly.</p>
+      <div style="display:flex; flex-direction:column; gap:1rem; font-size:0.875rem; color:var(--gray-700);">
+        <span>📧 hello@gymos.in</span>
+        <span>📞 +91 98765 43210</span>
+        <span>📍 Aurangabad, Maharashtra, India</span>
+      </div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:1rem;">
+      <input type="text" placeholder="Your name" style="padding:0.75rem 1rem; border:1px solid var(--line); background:var(--white); font-size:0.9rem; outline:none; font-family:inherit;" />
+      <input type="email" placeholder="Email address" style="padding:0.75rem 1rem; border:1px solid var(--line); background:var(--white); font-size:0.9rem; outline:none; font-family:inherit;" />
+      <select style="padding:0.75rem 1rem; border:1px solid var(--line); background:var(--white); font-size:0.9rem; outline:none; font-family:inherit; color:var(--gray-700);">
+        <option value="">I am a…</option>
+        <option>Gym Owner</option>
+        <option>Fitness Center Manager</option>
+        <option>Franchise Operator</option>
+        <option>Personal Trainer</option>
+        <option>Enterprise Customer</option>
+      </select>
+      <textarea placeholder="Your message" rows="4" style="padding:0.75rem 1rem; border:1px solid var(--line); background:var(--white); font-size:0.9rem; outline:none; font-family:inherit; resize:vertical;"></textarea>
+      <button type="button" class="btn-primary" style="width:fit-content">Send Message</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div style="border-top:1px solid var(--line);">
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo" style="display:inline-block; margin-bottom:0.5rem;">Gym<span>OS</span></a>
+        <p>Modern gym management for fitness businesses of every size — from single studios to nationwide chains.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#demo">Book Demo</a></li>
+          <li><a href="#">Mobile App</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Refund Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 GymOS. All rights reserved.</p>
+      <p style="font-size:0.75rem; color:var(--gray-500);">Built for gym owners, by fitness enthusiasts.</p>
+    </div>
+  </footer>
+</div>
+
+</body>
+</html>
