@@ -1,0 +1,523 @@
+.pricing-container {
+
+    width: 90%;
+
+    max-width: 1300px;
+
+    margin: auto;
+
+}
+
+.pricing-hero {
+
+    position: relative;
+
+    min-height: 75vh;
+
+    display: flex;
+
+    align-items: center;
+
+    background:
+        linear-gradient(rgba(5, 8, 22, .88), rgba(5, 8, 22, .92)),
+        url("/images/pricing-banner.jpg");
+
+    background-size: cover;
+
+    background-position: center;
+
+}
+
+.pricing-hero-content {
+
+    max-width: 700px;
+
+    position: relative;
+
+    z-index: 2;
+
+}
+
+.pricing-hero h1 {
+
+    font-size: 68px;
+
+    color: white;
+
+    line-height: 1.1;
+
+    margin: 20px 0;
+
+}
+
+.pricing-hero h1 span {
+
+    background: linear-gradient(90deg,
+            #7C3AED,
+            #EC4899);
+
+    -webkit-background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+
+}
+
+.pricing-hero p {
+
+    color: #CBD5E1;
+
+    font-size: 18px;
+
+    line-height: 1.9;
+
+    max-width: 620px;
+
+}
+
+.pricing-section {
+
+    padding: 120px 0;
+
+    background: #08101d;
+
+}
+
+.pricing-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 30px;
+
+}
+
+.price-card {
+
+    position: relative;
+
+    padding: 45px 35px;
+
+    border-radius: 24px;
+
+    background: rgba(255, 255, 255, .05);
+
+    border: 1px solid rgba(255, 255, 255, .08);
+
+    backdrop-filter: blur(18px);
+
+    transition: .35s;
+
+}
+
+.price-card:hover {
+
+    border-color: #7C3AED;
+
+    box-shadow:
+        0 20px 45px rgba(124, 58, 237, .25);
+
+}
+
+.popular {
+
+    border: 2px solid #A855F7;
+
+    transform: scale(1.04);
+
+}
+
+.popular-badge {
+
+    position: absolute;
+
+    top: -16px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    padding: 8px 18px;
+
+    border-radius: 30px;
+
+    background: linear-gradient(135deg,
+            #7C3AED,
+            #EC4899);
+
+    color: white;
+
+    font-size: 14px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+}
+
+.price-card h3 {
+
+    font-size: 28px;
+
+    color: white;
+
+    margin-bottom: 20px;
+
+}
+
+.price-card h2 {
+
+    font-size: 52px;
+
+    color: white;
+
+    margin-bottom: 30px;
+
+}
+
+.price-card h2 span {
+
+    font-size: 18px;
+
+    color: #94A3B8;
+
+}
+
+.price-card ul {
+
+    list-style: none;
+
+    padding: 0;
+
+    margin-bottom: 35px;
+
+}
+
+.price-card li {
+
+    display: flex;
+
+    gap: 12px;
+
+    align-items: center;
+
+    margin-bottom: 16px;
+
+    color: #CBD5E1;
+
+}
+
+.price-card svg {
+
+    color: #22C55E;
+
+}
+
+.price-card button {
+
+    width: 100%;
+
+    padding: 16px;
+
+    border: none;
+
+    border-radius: 50px;
+
+    cursor: pointer;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    background: linear-gradient(135deg,
+            #7C3AED,
+            #A855F7);
+
+    color: white;
+
+    transition: .35s;
+
+}
+
+.price-card button:hover {
+
+    transform: translateY(-4px);
+
+}
+
+/*==================================================
+            BILLING
+==================================================*/
+
+.billing-section {
+
+    padding: 100px 0;
+
+    background: #050816;
+
+}
+
+.billing-toggle {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 20px;
+
+    margin-top: 40px;
+
+}
+
+.billing-toggle button {
+
+    padding: 16px 35px;
+
+    border: none;
+
+    border-radius: 50px;
+
+    background: #111827;
+
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 16px;
+
+    transition: .35s;
+
+}
+
+.billing-toggle button.active {
+
+    background: linear-gradient(135deg,
+            #7C3AED,
+            #A855F7);
+
+}
+
+.billing-toggle span {
+
+    font-size: 13px;
+
+    color: #22C55E;
+
+    margin-left: 6px;
+
+}
+
+/*==================================================
+            COMPARISON
+==================================================*/
+
+.comparison {
+
+    padding: 120px 0;
+
+    background: #08101d;
+
+}
+
+.comparison-table {
+
+    overflow-x: auto;
+
+    border-radius: 20px;
+
+}
+
+.comparison table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    background: rgba(255, 255, 255, .05);
+
+}
+
+.comparison th {
+
+    padding: 22px;
+
+    background: #7C3AED;
+
+    color: white;
+
+}
+
+.comparison td {
+
+    padding: 18px;
+
+    text-align: center;
+
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
+
+    color: #CBD5E1;
+
+}
+
+.comparison tr:hover {
+
+    background: rgba(255, 255, 255, .03);
+
+}
+
+/*==================================================
+                FAQ
+==================================================*/
+
+.pricing-faq {
+
+    padding: 120px 0;
+
+    background: #050816;
+
+}
+
+.faq-list {
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 30px;
+
+}
+
+.faq-card {
+
+    padding: 35px;
+
+    background: rgba(255, 255, 255, .05);
+
+    border: 1px solid rgba(255, 255, 255, .08);
+
+    border-radius: 20px;
+
+    transition: .35s;
+
+}
+
+.faq-card:hover {
+
+    transform: translateY(-8px);
+
+    border-color: #7C3AED;
+
+}
+
+.faq-card h3 {
+
+    color: white;
+
+    margin-bottom: 18px;
+
+}
+
+.faq-card p {
+
+    color: #94A3B8;
+
+    line-height: 1.8;
+
+}
+
+/*==================================================
+                CTA
+==================================================*/
+
+.pricing-cta {
+
+    padding: 120px 20px;
+
+    text-align: center;
+
+    background: linear-gradient(135deg,
+            #7C3AED,
+            #5B21B6);
+
+}
+
+.pricing-cta h2 {
+
+    font-size: 52px;
+
+    color: white;
+
+    margin-bottom: 20px;
+
+}
+
+.pricing-cta p {
+
+    font-size: 18px;
+
+    color: #E5E7EB;
+
+    max-width: 650px;
+
+    margin: 0 auto 35px;
+
+    line-height: 1.8;
+
+}
+
+.pricing-cta button {
+
+    padding: 18px 45px;
+
+    border: none;
+
+    border-radius: 50px;
+
+    background: white;
+
+    color: #7C3AED;
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: .35s;
+
+}
+
+.pricing-cta button:hover {
+
+    transform: translateY(-5px);
+
+}
+
+@media(max-width:992px) {
+
+    .pricing-grid,
+    .faq-list {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+
+@media(max-width:768px) {
+
+    .pricing-hero h1 {
+
+        font-size: 42px;
+
+    }
+
+    .pricing-cta h2 {
+
+        font-size: 34px;
+
+    }
+
+}
