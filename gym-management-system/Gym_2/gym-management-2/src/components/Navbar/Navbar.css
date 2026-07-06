@@ -1,0 +1,195 @@
+.navbar {
+
+    position: fixed;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    z-index: 999;
+
+    padding: 22px 0;
+
+    transition: .4s;
+
+}
+
+.navbar.active {
+
+    background: rgba(9, 9, 11, .75);
+
+    backdrop-filter: blur(20px);
+
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
+
+    padding: 15px 0;
+
+}
+
+.navbar-container {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+}
+
+.logo {
+
+    font-size: 34px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+}
+
+.logo span {
+
+    color: #ff5a36;
+
+}
+
+.nav-menu {
+
+    display: flex;
+
+    gap: 38px;
+
+}
+
+.nav-menu a {
+
+    position: relative;
+
+    font-size: 16px;
+
+    font-weight: 500;
+
+    transition: .3s;
+
+}
+
+.nav-menu a:hover {
+
+    color: #ff5a36;
+
+}
+
+.nav-menu a::after {
+
+    content: "";
+
+    position: absolute;
+
+    bottom: -8px;
+
+    left: 0;
+
+    width: 0;
+
+    height: 2px;
+
+    background: #ff5a36;
+
+    transition: .35s;
+
+}
+
+.nav-menu a:hover::after {
+
+    width: 100%;
+
+}
+
+.demo-btn {
+
+    padding: 14px 28px;
+
+    border: none;
+
+    border-radius: 40px;
+
+    background: linear-gradient(135deg, #ff5a36, #ff884d);
+
+    color: #fff;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: .35s;
+
+}
+
+.demo-btn:hover {
+
+    transform: translateY(-4px);
+
+    box-shadow: 0 15px 35px rgba(255, 90, 54, .35);
+
+}
+
+.menu-btn {
+
+    display: none;
+
+    font-size: 28px;
+
+    cursor: pointer;
+
+}
+
+@media(max-width:992px) {
+
+    .menu-btn {
+
+        display: block;
+
+    }
+
+    .demo-btn {
+
+        display: none;
+
+    }
+
+    .nav-menu {
+
+        position: absolute;
+
+        top: 100%;
+
+        left: 0;
+
+        width: 100%;
+
+        background: #111;
+
+        padding: 35px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        gap: 25px;
+
+        transform: translateY(-200%);
+
+        transition: .4s;
+
+    }
+
+    .nav-menu.active {
+
+        transform: translateY(0);
+
+    }
+
+}

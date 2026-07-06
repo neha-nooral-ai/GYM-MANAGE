@@ -1,0 +1,49 @@
+.back-top {
+
+    position: fixed;
+
+    right: 35px;
+
+    bottom: 35px;
+
+    width: 60px;
+
+    height: 60px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #ff5a36;
+
+    color: white;
+
+    font-size: 22px;
+
+    cursor: pointer;
+
+    box-shadow: 0 15px 35px rgba(255, 90, 54, .4);
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transition: .4s;
+
+    z-index: 999;
+
+}
+
+.back-top:hover {
+
+    transform: translateY(-6px);
+
+}
+
+.back-top.show {
+
+    opacity: 1;
+
+    visibility: visible;
+
+}

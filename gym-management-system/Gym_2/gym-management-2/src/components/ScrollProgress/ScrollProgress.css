@@ -1,0 +1,19 @@
+.scroll-progress {
+
+    position: fixed;
+
+    top: 0;
+
+    left: 0;
+
+    height: 4px;
+
+    background: linear-gradient(90deg,
+            #ff5a36,
+            #ff884d);
+
+    z-index: 99999;
+
+    transition: .1s;
+
+}

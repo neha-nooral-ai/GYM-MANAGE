@@ -1,0 +1,155 @@
+.floating-card {
+
+    position: absolute;
+
+    background: rgba(255, 255, 255, .06);
+
+    backdrop-filter: blur(18px);
+
+    border: 1px solid rgba(255, 255, 255, .08);
+
+    border-radius: 22px;
+
+    padding: 18px 22px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    box-shadow: 0 25px 60px rgba(0, 0, 0, .30);
+
+    animation: floatCard 6s ease-in-out infinite;
+
+    z-index: 10;
+
+    transition: .35s;
+
+}
+
+.floating-card:hover {
+
+    transform: translateY(-8px) scale(1.04);
+
+    border-color: #ff5a36;
+
+}
+
+.icon {
+
+    font-size: 28px;
+
+    color: #ff5a36;
+
+}
+
+.green {
+
+    color: #10b981;
+
+}
+
+.orange {
+
+    color: #fb923c;
+
+}
+
+.floating-card h3 {
+
+    font-size: 24px;
+
+    margin-bottom: 4px;
+
+}
+
+.floating-card h4 {
+
+    font-size: 18px;
+
+}
+
+.floating-card span {
+
+    font-size: 13px;
+
+    color: #9ca3af;
+
+}
+
+/* Positions */
+
+.members-card {
+
+    top: 30px;
+
+    left: -80px;
+
+    animation-delay: 0s;
+
+}
+
+.attendance-card {
+
+    bottom: 30px;
+
+    left: -70px;
+
+    animation-delay: 1s;
+
+}
+
+.revenue-card {
+
+    top: 70px;
+
+    right: -90px;
+
+    animation-delay: 2s;
+
+}
+
+.notification-card {
+
+    bottom: 60px;
+
+    right: -100px;
+
+    animation-delay: 3s;
+
+    width: 250px;
+
+}
+
+@keyframes floatCard {
+
+    0% {
+
+        transform: translateY(0px);
+
+    }
+
+    50% {
+
+        transform: translateY(-15px);
+
+    }
+
+    100% {
+
+        transform: translateY(0px);
+
+    }
+
+}
+
+@media(max-width:1100px) {
+
+    .floating-card {
+
+        display: none;
+
+    }
+
+}
